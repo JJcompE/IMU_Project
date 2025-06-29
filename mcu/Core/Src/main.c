@@ -111,7 +111,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-//	  HAL_I2C_Mem_Read
+
   }
   /* USER CODE END 3 */
 }

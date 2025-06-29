@@ -1,3 +1,7 @@
+#pragma once
+
+#include "stm32wbxx_hal.h"  // Or the correct HAL header for I2C_HandleTypeDef
+
 #include <cstdint>
 #include <iostream>
 #include <string>
@@ -8,7 +12,7 @@ class IMU_1 {
 private:
     const uint8_t IMU_I2C_ADDRESS = 0x6B;
     const uint8_t IMU_I2C_ADDRESS_WR = 0xD7;
-    const uint8_t IMU_WHO_AM_I_REGISTER = 0xf;
+    const uint8_t IMU_WHO_AM_I_REGISTER = 0x0F;
     const uint8_t IMU_DEVICE_ID = 0x70;
 
     const uint8_t IMU_Acc_Cntr1 = 0x10;
@@ -19,6 +23,6 @@ private:
     const uint8_t IMU_CTRL6 = 0x15;
 
 public:
-    bool init();
+    uint8_t init(I2C_HandleTypeDef&);
 
 };
