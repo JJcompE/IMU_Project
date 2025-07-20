@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "name": "STM32",
+            "includePath": [
+                "${workspaceFolder}/**",
+
+                // GCC C/C++ headers
+                "/usr/lib/gcc/arm-none-eabi/13.2.1/include",
+                "/usr/lib/gcc/arm-none-eabi/13.2.1/include-fixed",
+                "/usr/lib/gcc/arm-none-eabi/13.2.1/include/c++",
+                "/usr/lib/gcc/arm-none-eabi/13.2.1/include/c++/arm-none-eabi",
+
+                // Toolchain's system headers
+                "/usr/lib/arm-none-eabi/include"
+            ],
+            "defines": [
+                "STM32WB55xx"
+            ],
+            "compilerPath": "/usr/bin/arm-none-eabi-gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-arm"
+        }
+    ],
+    "version": 4
+}
