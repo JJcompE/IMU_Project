@@ -429,25 +429,21 @@ void get_imu1_data(void) {
 }
 
 void tx_all_data(float *accel, float *angular) {
-	static uint8_t tx_buffer[100];
+  static uint8_t tx_buffer[100];
+  uint8_t index = 0;
+  tx_buffer[index++] = 0xAA;
+  tx_buffer[index++] = 0xBB;
 
-	sprintf((char *)tx_buffer, "Accel rate X axis [+/-2g]: %f\r\n", accel[0]);
-	HAL_UART_Transmit(&huart1, (uint8_t *)tx_buffer, strlen((char const *)tx_buffer), 1000);
-	sprintf((char *)tx_buffer, "Accel rate Y axis [+/-2g]: %f\r\n", accel[1]);
-	HAL_UART_Transmit(&huart1, (uint8_t *)tx_buffer, strlen((char const *)tx_buffer), 1000);
-	sprintf((char *)tx_buffer, "Accel rate Z axis [+/-2g]: %f\r\n", accel[2]);
-	HAL_UART_Transmit(&huart1, (uint8_t *)tx_buffer, strlen((char const *)tx_buffer), 1000);
+  for (int i = 0; i < 3; i++) {
+    memcpy(&tx_buffer[index], &accel[i], sizeof(int16_t));
+    index += sizeof(int16_t);
+  }
 
-	sprintf((char *)tx_buffer, "Angular rate X axis [deg/sec]: %f\r\n", angular[0]);
-	HAL_UART_Transmit(&huart1, (uint8_t *)tx_buffer, strlen((char const *)tx_buffer), 1000);
-	sprintf((char *)tx_buffer, "Angular rate Y axis [deg/sec]: %f\r\n", angular[1]);
-	HAL_UART_Transmit(&huart1, (uint8_t *)tx_buffer, strlen((char const *)tx_buffer), 1000);
-	sprintf((char *)tx_buffer, "Angular rate Z axis [deg/sec]: %f\r\n", angular[2]);
-	HAL_UART_Transmit(&huart1, (uint8_t *)tx_buffer, strlen((char const *)tx_buffer), 1000);
-
-	// DEBUG DELAY TO BE ABLE TO READ SERIAL TERMINAL
-	HAL_Delay(500);
-
+  for (int j = 0; j < 3; j++) {
+    mempcy(&tx_buffer[index], &angular[i], sizeof(int16_t));
+    index += sizeof(int16_t);
+  }
+  HAL_UART_Transmit(&huart1, tx_buffer, index, 1000);
 }
 /* USER CODE END 4 */
 
