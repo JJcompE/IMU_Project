@@ -5,9 +5,9 @@
 **
 **  Author      : STM32CubeIDE
 **
-**  Abstract    : Linker script for STM32WB55xG Device
-**                      1024Kbytes FLASH
-**                      256Kbytes RAM
+**  Abstract    : Linker script for STM32WB15xC Device
+**                      320Kbytes FLASH
+**                       48Kbytes RAM
 **
 **                Set heap size, stack size and stack location according
 **                to application requirements.
@@ -38,14 +38,14 @@ ENTRY(Reset_Handler)
 /* Highest address of the user mode stack */
 _estack = ORIGIN(RAM) + LENGTH(RAM);    /* end of RAM */
 /* Generate a link error if heap and stack don't fit into RAM */
-_Min_Heap_Size = 0x200;  /* required amount of heap  */
-_Min_Stack_Size = 0x400; /* required amount of stack */
+_Min_Heap_Size = 0x200;      /* required amount of heap  */
+_Min_Stack_Size = 0x400;   /* required amount of stack */
 
 /* Specify the memory areas */
 MEMORY
 {
-FLASH (rx)                 : ORIGIN = 0x08000000, LENGTH = 512K
-RAM (xrw)                 : ORIGIN = 0x20000008, LENGTH = 0x2FFF8
+FLASH (rx)                 : ORIGIN = 0x08000000, LENGTH = 110K
+RAM (xrw)                 : ORIGIN = 0x20000008, LENGTH = 0x2FF8
 RAM_SHARED (xrw)           : ORIGIN = 0x20030000, LENGTH = 10K
 }
 
@@ -183,3 +183,5 @@ SECTIONS
     _eMB_MEM2 = . ;
   } >RAM_SHARED AT> FLASH
 }
+
+
