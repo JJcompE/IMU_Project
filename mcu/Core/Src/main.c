@@ -107,13 +107,28 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
+    /* USER CODE BEGIN 3 */
 	 if (init_ret_1 != CONNECTED) {
-	  // handle connection issue
+    const char* error_msg = IMU1_status_to_string(init_ret_1);
+    HAL_UART_Transmit(&huart1, (uint8_t*) error_msg, strlen(error_msg), 1000);
+    HAL_UART_Transmit(&huart1, (uint8_t*)"\r\n", 2, 100);
+
 	 }
 	 else {
-	  get_imu1_data();
-	}
+		get_imu1_data();
+	 }
+
+	  // uint8_t tx_buffer[] = "Hello World!!!";
+	  // HAL_StatusTypeDef tx_ret = HAL_UART_Transmit(&huart1, tx_buffer, sizeof(tx_buffer), 1000);
+
+	  // if (tx_ret != HAL_OK) {
+	  //     printf("TX failed: %d\n", tx_ret);
+	  // }
+	  HAL_Delay(100);
   }
+
+
+
   /* USER CODE END 3 */
 }
 
@@ -312,6 +327,12 @@ IMU1_Status init_imu_1() {
     if (read_dev_id == IMU1_DEVICE_ID) {
       HAL_I2C_Mem_Write(&hi2c1, IMU1_I2C_ADDRESS_WR, IMU1_CTRL3_REG, 1, &reboot_mem_bm_val, 1, HAL_MAX_DELAY); // reboot data in IMU
       ret = CONNECTED;
+    } else {
+      // return what read_dev_id returned
+      // shortcut way
+      char read_val[32];
+      sprintf(read_val, "Value read: %d (0x%02X)\r\n", read_dev_id, read_dev_id);
+      HAL_UART_Transmit(&huart1, (uint8_t*)read_val, strlen(read_val), 1000);
     }
   }
   return ret;

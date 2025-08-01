@@ -28,6 +28,20 @@ typedef enum{
     UNKNOWN
 } IMU1_Status;
 
+const char* IMU1_status_to_string(IMU1_Status status) {
+    switch (status)
+        {
+        case IMU1_HAL_OK:  return "IMU1_HAL_OK";
+        case IMU1_HAL_ERROR: return "IMU1_HAL_ERROR";
+        case IMU1_HAL_BUSY: return "IMU1_HAL_BUSY";
+        case IMU1_HAL_TIMEOUT: return "IMU1_HAL_TIMEOUT";
+        case BAD_ID: return "BAD_ID";
+        case CONNECTED: return "CONNECTED";
+        case UNKNOWN: return "UNKNOWN";
+        default: return "Not sure ... :(";
+        }
+}
+
 // Inline or static function definitions
 static inline int16_t convert_to_int16(uint8_t high, uint8_t low) {
     return (int16_t)((high << 8) | low);
